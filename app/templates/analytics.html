@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analytics</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', path='/url/css/style.css') }}">
+    <style>
+        .analytics{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+         <a href="/url" class="logo">
+            <div class="logo">Scissor</div>
+        </a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul>
+            <li><a href="/analytics">Analytics</a></li>
+            <li><a href="/urls">History</a></li>
+            <li><a href="/download-qrcode">QRcode</a></li>
+            <li><a href="/url">URLShortener</a></li>
+            <li><a href="/user/logout" class="sign-out">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="analytics">
+        <h2>Analytics for Shortened URL: {{ short_url }}</h2>
+        <p>Total Clicks: {{ clicks }}</p>
+    </div>
+</body>
+</html>

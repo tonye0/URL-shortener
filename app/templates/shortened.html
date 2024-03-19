@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortened URL</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 100px;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            padding: 10px;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .back a, .short{
+            color: black;
+        }
+
+        .short-link{
+            color: black;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .shortened-url {
+            margin-bottom: 20px;
+        }
+        .qr-code {
+            margin-bottom: 20px;
+        }
+        /* Responsive styling */
+        @media only screen and (max-width: 600px) {
+            .menu-icon {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background-color: #333;
+                padding: 0;
+                z-index: 1;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            nav ul li {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        @media only screen and (min-width: 600px){
+            .container{
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+         <a href="/url" class="logo">
+            <div class="logo">Scissor</div>
+        </a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul>
+            <li><a href="/analytics">Analytics</a></li>
+            <li><a href="/urls">History</a></li>
+            <li><a href="/download-qrcode">QRcode</a></li>
+            <li><a href="/url">URLShortener</a></li>
+            <li><a href="/user/logout" class="sign-out">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="shortened-url">
+            <h3>Your shortened URL:</h3>
+             <p><a class="short-link" href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+        </div>
+        <div class="qr-code">
+            <h3>QR Code:</h3>
+            <img src="/qrcode?url={{ long_url }}" alt="QR Code for {{ long_url }}">
+        </div>
+        <div>
+            <h3>Download QR Code:</h3>
+            <p>Click the button below to download the QR code image:</p>
+            <a href="/qrcode?url={{ long_url }}" download="qrcode.png">
+                <button>Download QR Code</button>
+            </a>
+        </div>
+
+    </div>
+    <h3 class="back"><a href="/url/">Go back to Shortening URLs</a></h3>
+    <script>
+        function toggleMenu() {
+            var navList = document.querySelector('nav ul');
+            navList.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

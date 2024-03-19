@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        form {
+            margin-top: 50px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        /* Navbar styles */
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            padding: 10px;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .menu-icon {
+            display: none;
+        }
+        /* Responsive styling */
+        @media only screen and (max-width: 600px) {
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background-color: #333;
+                padding: 0;
+                z-index: 1;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            .menu-icon {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+         <a href="/url" class="logo">
+            <div class="logo">Scissor</div>
+        </a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul>
+            <li><a href="/analytics">Analytics</a></li>
+            <li><a href="/urls">History</a></li>
+            <li><a href="/download-qrcode">QRcode</a></li>
+            <li><a href="/url">URLShortener</a></li>
+            <li><a href="/user/logout" class="sign-out">Logout</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Download QR Code</h1>
+        <form action="/qrcode" method="get">
+            <input type="text" id="url" name="url" placeholder="Enter URL">
+            <br>
+            <button>Download QR Code</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var navList = document.querySelector('nav ul');
+            navList.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

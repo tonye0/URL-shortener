@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', path='/url/css/style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">
+            <div class="logo">Scissor</div>
+        </a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul>
+            <li><a href="/user/login">Analytics</a></li>
+            <li><a href="/user/login">History</a></li>
+            <li><a href="/user/login">QRcode</a></li>
+            <li><a href="/user/login">URLShortener</a></li>
+            <li><a href="/user/login">Login</a></li>
+            <li><a href="/user/register">Sign Up</a></li>
+        </ul>
+    </nav>
+    <div class="hero">
+        <div class="container">
+            <h1>Scissor.io</h1>
+            <p>
+                A simple and elegant tool to shorten your long URLs. With our service, you can shorten URLs easily, track their performance with analytics, and create QR codes for quick sharing.
+            </p>
+            <a href="/user/login" class="btn">Sign In</a>
+            <a href="/user/register" class="btn">Sign Up</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            var navList = document.querySelector('nav ul');
+            navList.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

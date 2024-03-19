@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+    }
+    h1{
+        text-align: center;
+    }
+
+    nav {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .logout-button {
+        background-color: #c0392b;
+        color: #ffffff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .logout-button:hover {
+        background-color: #e74c3c;
+    }
+
+    .nav-links {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .nav-links li {
+        margin-right: 20px;
+    }
+
+    .nav-links li:last-child {
+        margin-right: 0;
+    }
+
+    .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 80%;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    .history-container {
+        max-width: 80%;
+        margin: auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .history-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .history-table th, .history-table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .history-table th {
+        background-color: #f2f2f2;
+    }
+
+    .history-table tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .history-table tbody tr:hover {
+        background-color: #f2f2f2;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .toggle-menu {
+        display: none;
+    }
+
+    .show {
+        display: block !important;
+    }
+
+    @media screen and (max-width: 768px) {
+        .nav-links {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background-color: #34495e;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            padding-bottom: 20px;
+        }
+
+        .nav-links li {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        .toggle-menu {
+            display: block;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ffffff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .history-table {
+            font-size: 12px;
+        }
+    }
+    </style>
+
+</head>
+<body>
+    <nav>
+         <a href="/url" class="logo">
+            <div class="logo">Scissor</div>
+        </a>
+        <div class="toggle-menu" onclick="toggleMenu()">&#9776;</div>
+        <ul class="nav-links">
+            <li><a href="/analytics">Analytics</a></li>
+            <li><a href="/urls">History</a></li>
+            <li><a href="/download-qrcode">QRcode</a></li>
+            <li><a href="/url">URLShortener</a></li>
+            <li><a href="/user/logout" class="sign-out">Logout</a></li>
+        </ul>
+    </nav>
+    <h1>History of Shortened URLs</h1>
+    <div class="history-container">
+        <table class="history-table">
+            <thead>
+              <tr>
+                <th scope="col">Long URL</th>
+                <th scope="col">Shortened URL</th>
+                <th scope="col">Date</th>
+
+              </tr>
+            </thead>
+            <tbody>
+                {% for url in urls %}
+              <tr>
+                <td><a href="{{ url.long_url }}">{{ url.long_url }}</a></td>
+                <td><a href="{{ url.short_url }}">{{ url.short_url }}</a></td>
+                <td>{{ url.created_at }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script>
+        document.querySelector('.toggle-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+    </script>
+</body>
+</html>
+

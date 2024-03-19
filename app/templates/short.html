@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .logo a {
+            text-decoration: none;
+            color: #fff;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            padding: 10px;
+        }
+        a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .sign-out {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            text-decoration: none;
+        }        
+      
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="url"] {
+            width: 30%; /* Full width on smaller screens */
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 15px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        /* Responsive styling */
+        @media only screen and (max-width: 600px) {
+            .menu-icon {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                align-items: center;
+                position: absolute;
+                top: 50px;
+                left: 0;
+                width: 100%;
+                background-color: #333;
+                padding: 0;
+                z-index: 1;
+            }
+            nav ul.active {
+                display: flex;
+            }
+            nav ul li {
+                padding: 10px;
+            }
+            .sign-out {
+                display: none;
+            }
+            .menu-icon + ul .sign-out {
+                display: block;
+                margin-top: 10px;
+            }
+            form {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 80%;
+            }
+        }
+        @media only screen and (min-width: 601px) {
+            input[type="text"] {
+                width: 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/url" class="logo">
+            <div class="logo">Scissor</div>
+        </a>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <ul>
+            <li><a href="/analytics">Analytics</a></li>
+            <li><a href="/urls">History</a></li>
+            <li><a href="/download-qrcode">QRcode</a></li>
+            <li><a href="/url">URLShortener</a></li>
+            <li><a href="/user/logout" class="sign-out">Logout</a></li>
+        </ul>
+    </nav>
+    <form action="/shorten/" method="post">
+        <input type="url" name="long_url" placeholder="Enter URL">
+        <br>
+        <input type="text" name="custom_url" placeholder="Enter Custom link">
+        <br>
+        <button>Shorten URL</button>
+    </form>
+
+    <script>
+        function toggleMenu() {
+            var navList = document.querySelector('nav ul');
+            navList.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
+
+
+
+
