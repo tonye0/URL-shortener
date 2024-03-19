@@ -33,13 +33,3 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 async def http_exception_handler(request: Request, exc: Exception):
     return templates.TemplateResponse("http_error.html", {"request": request, "status_code": 404, "exc": exc})
 
-
-
-#
-# echo "# scissor.io" >> README.md
-# git init
-# git add README.md
-# git commit -m "first commit"
-# git branch -M main
-# git remote add origin https://github.com/tonye0/scissor.io.git
-# git push -u origin main
