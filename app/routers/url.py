@@ -1,4 +1,4 @@
-from fastapi import Request, HTTPException, Depends, APIRouter, status, Form
+from fastapi import Request, Response, HTTPException, Depends, APIRouter, status, Form
 from fastapi.responses import RedirectResponse, FileResponse, HTMLResponse
 
 from fastapi_simple_rate_limiter import rate_limiter
@@ -19,6 +19,18 @@ url_router = APIRouter(
 )
 
 
+@url_router.get("/urls", response_class=HTMLResponse, response_model=UrlResponse)
+@rate_limiter(limit=10, seconds=60)
+async def all_urls(request: Request, db: Session = Depends(get_db)):
+    user = await get_current_user(request)
+    if user is None:
+        return RedirectResponse("/user/login", status_code=status.HTTP_302_FOUND)
+
+    urls = db.query(URL).filter(URL.user_id == user.get("id")).all()
+
+    return templates.TemplateResponse("history.html", {"request": request, "urls": urls})
+
+
 @url_router.get("/url", response_class=HTMLResponse)
 async def index(request: Request):
     user = await get_current_user(request)
@@ -28,9 +40,11 @@ async def index(request: Request):
     return templates.TemplateResponse({"request": request}, "short.html")
 
 
-@url_router.post("/shorten")
-@rate_limiter(limit=10, seconds=60)
-async def shorten_url(
+
+@url_router.post("/shorten-long-url")
+
+async def shorten_long_url(
+        response: Response,
         request: Request,
         long_url: Annotated[str, Form()],
         custom_url: str = Form(None),
@@ -50,6 +64,8 @@ async def shorten_url(
         short_url = custom_url
     else:
         short_url = generate_short_url()
+    
+    print("Short URL:", short_url)
 
     url_link = URL()
     url_link.long_url = long_url
@@ -61,29 +77,16 @@ async def shorten_url(
     db.commit()
     db.refresh(url_link)
 
-    return templates.TemplateResponse({"request": request, "short_url": short_url}, "shortened.html")
-
-
-@url_router.get("/urls", response_class=HTMLResponse, response_model=UrlResponse)
-@rate_limiter(limit=2, seconds=60)
-async def all_urls(request: Request, db: Session = Depends(get_db)):
-    user = await get_current_user(request)
-    if user is None:
-        return RedirectResponse("/user/login", status_code=status.HTTP_302_FOUND)
-
-    urls = db.query(URL).filter(URL.user_id == user.get("id")).all()
-
-    return templates.TemplateResponse("history.html", {"request": request, "urls": urls})
+    return templates.TemplateResponse({"request": request, "url": short_url}, "shortened.html")
 
 
 @url_router.get("/download-qrcode")
-@rate_limiter(limit=5, seconds=60)
+@rate_limiter(limit=10, seconds=60)
 async def download_qr_code_form(request: Request):
     return templates.TemplateResponse("download_qrcode.html", {"request": request})
 
 
 @url_router.get("/qrcode")
-@rate_limiter(limit=2, seconds=60)
 async def download_qr_code(request: Request, url: str):
     user = await get_current_user(request)
     if user is None:
@@ -98,7 +101,7 @@ async def download_qr_code(request: Request, url: str):
 
 
 @url_router.get("/analytics", response_class=HTMLResponse)
-@rate_limiter(limit=5, seconds=60)
+@rate_limiter(limit=10, seconds=60)
 async def show_analytics_form(request: Request):
     user = await get_current_user(request)
     if user is None:
@@ -107,7 +110,7 @@ async def show_analytics_form(request: Request):
 
 
 @url_router.post("/analytic")
-@rate_limiter(limit=2, seconds=60)
+@rate_limiter(limit=10, seconds=60)
 async def get_analytics(request: Request, short_url: str = Form(...), db: Session = Depends(get_db)):
     user = await get_current_user(request)
     if user is None:
@@ -125,6 +128,24 @@ async def get_analytics(request: Request, short_url: str = Form(...), db: Sessio
         )
     else:
         raise HTTPException(status_code=404, detail="Short URL not found")
+
+
+@url_router.post("/delete/{url_id}")
+async def delete_url(request: Request, url_id: int, db: Session = Depends(get_db)):
+    user = await get_current_user(request)
+    if user is None:
+        return RedirectResponse("/user/login", status_code=status.HTTP_302_FOUND)
+
+    urls = db.query(URL).filter(URL.user_id == user.get("id")).all()
+
+    url_to_delete = db.query(URL).filter(URL.id == url_id).first()
+
+    if not url_to_delete:
+        raise HTTPException(status_code=404, detail="URL not found")
+
+    db.delete(url_to_delete)
+    db.commit()
+    return RedirectResponse("/urls/", status_code=status.HTTP_303_SEE_OTHER)
 
 
 @url_router.get("/{short_url}")

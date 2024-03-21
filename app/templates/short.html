@@ -60,6 +60,7 @@
         form {
             text-align: center;
             margin-top: 20px;
+            margin-top: 10em;
         }
         input[type="text"], input[type="url"] {
             width: 30%; /* Full width on smaller screens */
@@ -117,7 +118,7 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                width: 80%;
+                width: 200%;
             }
         }
         @media only screen and (min-width: 601px) {
@@ -141,10 +142,10 @@
             <li><a href="/user/logout" class="sign-out">Logout</a></li>
         </ul>
     </nav>
-    <form action="/shorten/" method="post">
+    <form action="/shorten-long-url" method="post">
         <input type="url" name="long_url" placeholder="Enter URL">
         <br>
-        <input type="text" name="custom_url" placeholder="Enter Custom link">
+        <input type="text" name="custom_url" placeholder="Enter Custom alias">
         <br>
         <button>Shorten URL</button>
     </form>

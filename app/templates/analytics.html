@@ -11,6 +11,11 @@
         .analytics{
             text-align: center;
         }
+        .show {
+            display: block !important;
+        }
+    
+
     </style>
 </head>
 <body>
@@ -19,7 +24,7 @@
             <div class="logo">Scissor</div>
         </a>
         <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-        <ul>
+        <ul class="nav-links">
             <li><a href="/analytics">Analytics</a></li>
             <li><a href="/urls">History</a></li>
             <li><a href="/download-qrcode">QRcode</a></li>
@@ -31,5 +36,10 @@
         <h2>Analytics for Shortened URL: {{ short_url }}</h2>
         <p>Total Clicks: {{ clicks }}</p>
     </div>
+    <script>
+        document.querySelector('.menu-icon').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
+    </script>
 </body>
 </html>

@@ -32,20 +32,17 @@
         text-decoration: none;
         color: #ffffff;
     }
-
-    .logout-button {
-        background-color: #c0392b;
-        color: #ffffff;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 5px;
-        cursor: pointer;
+    nav ul {
+        list-style-type: none;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 0;
+        padding: 0;
     }
-
-    .logout-button:hover {
-        background-color: #e74c3c;
+    nav ul li {
+        padding: 10px;
     }
-
     .nav-links {
         list-style-type: none;
         margin: 0;
@@ -128,19 +125,33 @@
         display: block !important;
     }
 
+    input[type="submit"] {
+        background-color: #3498db;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+        background-color: #2980b9;
+    }
+
     @media screen and (max-width: 768px) {
         .nav-links {
             display: none;
             position: absolute;
-            top: 60px;
+            top: 50px;
             left: 0;
             width: 100%;
-            background-color: #34495e;
+            background-color: #333;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            border-radius: 0 0 10px 10px;
             padding-bottom: 20px;
+            padding: 0;
+            z-index: 1;
         }
 
         .nav-links li {
@@ -163,6 +174,24 @@
         .history-table {
             font-size: 12px;
         }
+        nav ul {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            padding: 0;
+            z-index: 1;
+        }
+        nav ul.active {
+            display: flex;
+        }
+        .toggle-menu {
+            display: block;
+        }
+        
     }
     </style>
 
@@ -183,25 +212,33 @@
     </nav>
     <h1>History of Shortened URLs</h1>
     <div class="history-container">
-        <table class="history-table">
+        <h2>Shortened URL History</h2>
+        <div class="table-container">
+            <table class="history-table">
             <thead>
-              <tr>
-                <th scope="col">Long URL</th>
-                <th scope="col">Shortened URL</th>
-                <th scope="col">Date</th>
-
-              </tr>
+                <tr>
+                    <th>Long URL</th>
+                    <th>Shortened URL</th>
+                    <th>Date</th>
+                    <th>&nbsp;</th>
+                </tr>
             </thead>
             <tbody>
                 {% for url in urls %}
-              <tr>
-                <td><a href="{{ url.long_url }}">{{ url.long_url }}</a></td>
-                <td><a href="{{ url.short_url }}">{{ url.short_url }}</a></td>
-                <td>{{ url.created_at }}</td>
-              </tr>
-              {% endfor %}
+                <tr>
+                    <td><a href="{{ url.long_url }}" target="_blank">{{ url.long_url }}</a></td>
+                    <td><a href="{{ url.short_url }}" target="_blank">{{ url.short_url }}</a></td>
+                    <td>{{ url.created_at }}</td>
+                    <td>
+                        <form id="delete-form-{{ url.id }}" action="/delete/{{ url.id }}" method="POST">
+                            <input type="submit" value="Delete" onclick="confirmDelete(event, {{ url.id }})">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
+        </div>
     </div>
     <script>
         document.querySelector('.toggle-menu').addEventListener('click', function() {

@@ -52,13 +52,14 @@
             text-decoration: none;
         }
 
-        .back a, .short{
-            color: black;
+        .back a{
+            color: blue;
         }
 
-        .short-link{
-            color: black;
+        .back a:hover {
+            border-bottom: 2px solid blue;
         }
+
         h1 {
             margin-top: 0;
         }
@@ -67,6 +68,9 @@
         }
         .qr-code {
             margin-bottom: 20px;
+        }
+        .back{
+            color: blue;
         }
         /* Responsive styling */
         @media only screen and (max-width: 600px) {
@@ -121,7 +125,7 @@
     <div class="container">
         <div class="shortened-url">
             <h3>Your shortened URL:</h3>
-             <p><a class="short-link" href="{{ short_url }}" target="_blank">{{ short_url }}</a></p>
+            <p><a class="short-link" href="{{ url }}" target="_blank">{{ url }}</a></p>
         </div>
         <div class="qr-code">
             <h3>QR Code:</h3>
@@ -137,6 +141,7 @@
 
     </div>
     <h3 class="back"><a href="/url/">Go back to Shortening URLs</a></h3>
+    <h3 class="back"><a href="/urls/">Go back to History to see shorthened URLs</a></h3>
     <script>
         function toggleMenu() {
             var navList = document.querySelector('nav ul');

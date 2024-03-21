@@ -32,7 +32,6 @@ a {
     text-decoration: none;
 }
 
-/* Button styles */
 .btn {
     padding: 15px 30px;
     background-color: #333;
@@ -45,7 +44,7 @@ a {
 .btn:hover {
     background-color: #555;
 }
-/* Navbar styles */
+
 nav {
     background-color: #333;
     color: #fff;
