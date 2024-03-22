@@ -77,7 +77,7 @@ async def shorten_long_url(
     db.commit()
     db.refresh(url_link)
 
-    return templates.TemplateResponse({"request": request, "url": short_url}, "shortened.html")
+    return templates.TemplateResponse("shortened.html", {"request": request, "url": short_url})
 
 
 @url_router.get("/download-qrcode")
