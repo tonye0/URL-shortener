@@ -5,141 +5,211 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Short URL Result - URL Shortener</title>
     <style>
-        /* Basic styling */
         body {
             font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
             margin: 0;
             padding: 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            margin-top: 100px;
         }
         nav {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
+            background-color: #34495e;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: #ffffff;
+            height: 3em;
+            margin-bottom: 5em;
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            cursor: pointer;
+        .logo img {
+            height: 30px;
+            width: auto;
         }
-        .menu-icon {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-        }
-        nav ul {
-            list-style-type: none;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
-        nav ul li {
-            padding: 10px;
-        }
-        a {
+        .button {
+            display: inline-block;
+            width: 100px;
+            padding: 10px 20px;
+            background-color: #007bff;
             color: #fff;
             text-decoration: none;
+            text-align: center;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+            
+        .button:hover {
+            background-color: red;
+        }
+        .nav-links a:hover {
+            border-bottom: 2px solid #ffffff;
         }
 
-        .back a{
-            color: blue;
+        .nav-links {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-
-        .back a:hover {
-            border-bottom: 2px solid blue;
+        .nav-links li {
+            margin-right: 20px;
         }
-
-        h1 {
-            margin-top: 0;
+        .nav-links li:last-child {
+            margin-right: 0;
         }
-        .shortened-url {
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+        .container {
+            max-width: 90%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: rgb(160, 36, 135);
+        }
+        p {
             margin-bottom: 20px;
         }
-        .qr-code {
-            margin-bottom: 20px;
+        .form-container {
+            margin-top: 20px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            max-width: 400px;
+            margin: 0 auto;
         }
-        .back{
-            color: blue;
+        .form-container input[type="text"],
+        .form-container input[type="url"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
         }
-        /* Responsive styling */
-        @media only screen and (max-width: 600px) {
-            .menu-icon {
-                display: block;
-            }
-            nav ul {
+        .form-container input[type="submit"] {
+            background-color: #3498db;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+        .toggle-menu {
+            display: none;
+        }
+        .show {
+            display: block !important;
+        }
+        .shortened-url{
+            margin-right: 10em;
+        }
+        .qrcode{
+            margin-bottom: 0;
+        }
+        .btn-card{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        .btn {
+            padding: 15px 30px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #555;
+        }
+        @media screen and (max-width: 768px) {
+            .nav-links {
                 display: none;
-                flex-direction: column;
-                align-items: center;
                 position: absolute;
-                top: 50px;
+                top: 60px;
                 left: 0;
                 width: 100%;
-                background-color: #333;
-                padding: 0;
-                z-index: 1;
+                background-color: #34495e;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                border-radius: 0 0 10px 10px;
+                padding-bottom: 20px;
             }
-            nav ul.active {
+            .nav-links li {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .toggle-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                color: #ffffff;
+                font-size: 1.5em;
+                cursor: pointer;
+            }
+            .container {
+                max-width: 90%;
                 display: flex;
-            }
-            nav ul li {
-                padding: 10px;
-            }
-            h1 {
-                font-size: 24px;
-            }
-        }
-
-        @media only screen and (min-width: 600px){
-            .container{
-                display: flex;
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
     <nav>
-         <a href="/url" class="logo">
-            <div class="logo">Scissor</div>
-        </a>
-        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-        <ul>
-            <li><a href="/analytics">Analytics</a></li>
-            <li><a href="/urls">History</a></li>
-            <li><a href="/download-qrcode">QRcode</a></li>
-            <li><a href="/url">URLShortener</a></li>
-            <li><a href="/user/logout" class="sign-out">Logout</a></li>
+        <a href="/dashboard/" class="logo"><img src="/static/scissor/images/Logo.svg" alt="Logo"></a>
+        <ul class="nav-links">
+            <li><a href="/dashboard/">Shorten URL</a></li>
+            <li><a href="/history">History</a></li>
+            <li><a href="/url-analytics/">Analytics</a></li>
+            <li><a href="/download-qrcode/">QR Code Generator</a></li>
+            <li><a href="/user/logout/" class="button">Logout</a></li>
         </ul>
+        <div class="toggle-menu">&#9776;</div>
     </nav>
     <div class="container">
+        <div>
+            <h2>URL Label</h2>
+            <h3 class="label">{{ label }}</h3>
+        </div>
         <div class="shortened-url-container">
             <h2>Shortened URL</h2>
-            <!-- Display the shortened URL -->
-            <p><a href="https://url-shortener-7pi6.onrender.com/{{ url }}" target="_blank">https://url-shortener-7pi6.onrender.com/{{ url }}</a></p>
+            <p><a href="{{ short_url }}" target="_blank">scissor.io/{{ short_url }}</a></p>
         </div>
         <div class="qr-code-container">
             <h2 class="qrcode">QR Code</h2>
-            <!-- Display QR code for the long URL -->
             <a href="/qrcode?url={{ long_url }}" download="qrcode.png"><img src="/qrcode?url={{ long_url }}" alt="QR Code for {{ long_url }}"></a>
         </div>
     </div>
-   <h3 class="back"><a href="/url/">Go back to Shortening URLs</a></h3>
-    <h3 class="back"><a href="/urls/">Go back to History to see shortened URLs</a></h3>
+    <div class="btn-card">
+        <a href="/dashboard/" class="btn">Shorten More URLs</a>
+        <a href="/history/" class="btn">Go to History</a>
+    </div>
+    
+ 
     <script>
-        function toggleMenu() {
-            var navList = document.querySelector('nav ul');
-            navList.classList.toggle('active');
-        }
+        document.querySelector('.toggle-menu').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        });
     </script>
 </body>
-</html>
+    </html>
