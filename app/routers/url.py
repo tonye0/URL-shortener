@@ -42,7 +42,6 @@ async def index(request: Request):
 
 
 @url_router.post("/shorten-long-url")
-
 async def shorten_long_url(
         response: Response,
         request: Request,
