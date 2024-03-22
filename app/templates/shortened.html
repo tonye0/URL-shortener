@@ -124,15 +124,17 @@
     <div class="container">
         <div class="shortened-url-container">
             <h2>Shortened URL</h2>
-            <p><a href="{{ url }}" target="_blank">https://url-shortener-7pi6.onrender.com/{{ url }}</a></p>
+            <!-- Display the shortened URL -->
+            <p><a href="https://url-shortener-7pi6.onrender.com/{{ url }}" target="_blank">https://url-shortener-7pi6.onrender.com/{{ url }}</a></p>
         </div>
         <div class="qr-code-container">
             <h2 class="qrcode">QR Code</h2>
+            <!-- Display QR code for the long URL -->
             <a href="/qrcode?url={{ long_url }}" download="qrcode.png"><img src="/qrcode?url={{ long_url }}" alt="QR Code for {{ long_url }}"></a>
         </div>
     </div>
    <h3 class="back"><a href="/url/">Go back to Shortening URLs</a></h3>
-    <h3 class="back"><a href="/urls/">Go back to History to see shorthened URLs</a></h3>
+    <h3 class="back"><a href="/urls/">Go back to History to see shortened URLs</a></h3>
     <script>
         function toggleMenu() {
             var navList = document.querySelector('nav ul');
